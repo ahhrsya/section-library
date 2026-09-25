@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node (this repo has no build step — never commit these)
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+dist/
+build/
+.next/
+out/
+
+# Env / secrets
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+
+# Cloudflare local state
+.wrangler/
+.mf/
+
+# Logs
+*.log
+npm-debug.log*

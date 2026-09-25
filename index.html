@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Section Library</title>
+<style>
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('fonts/DMSans-latin.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('fonts/DMSans-latin.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('fonts/DMSans-latin.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('fonts/DMSans-latin.woff2') format('woff2');
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    background: #ffffff;
+    color: #161616;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 24px 80px; }
+
+  .eyebrow {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: #8a8a8a; display: inline-flex; align-items: center; gap: 8px;
+    margin-bottom: 14px;
+  }
+  .eyebrow::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%; background: #161616;
+  }
+  h1 {
+    font-weight: 500; font-size: clamp(30px, 4.4vw, 50px);
+    line-height: 1.05; letter-spacing: -2px; margin: 0 0 12px;
+  }
+  .lede {
+    font-size: 15px; line-height: 1.6; color: #6b6b6b;
+    max-width: 620px; margin: 0 0 44px;
+  }
+
+  .cat { margin-bottom: 40px; }
+  .cat-head {
+    display: flex; align-items: baseline; gap: 10px;
+    padding-bottom: 12px; margin-bottom: 16px;
+    border-bottom: 1px solid #ececec;
+  }
+  .cat-name {
+    font-weight: 600; font-size: 15px; letter-spacing: -0.3px;
+    text-transform: capitalize;
+  }
+  .cat-count { font-size: 12px; color: #a0a0a0; }
+  .cat-empty { font-size: 13px; color: #b0b0b0; font-style: italic; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+  .item {
+    display: block; text-decoration: none; color: inherit;
+    border: 1px solid #ececec; border-radius: 14px;
+    padding: 18px 18px 16px; background: #fff;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  .item:hover {
+    border-color: #d6d6d6;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+    transform: translateY(-2px);
+  }
+  .item .t { font-weight: 600; font-size: 14px; letter-spacing: -0.2px; margin-bottom: 4px; }
+  .item .d { font-size: 12px; color: #8a8a8a; line-height: 1.45; }
+  .item .go { font-size: 11px; color: #161616; margin-top: 12px; font-weight: 600; }
+
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid #ececec;
+    font-size: 12px; color: #a0a0a0;
+  }
+  footer code {
+    background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-size: 11px;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="eyebrow">Component library</span>
+    <h1>Section Library</h1>
+    <p class="lede">A growing collection of standalone, self-contained landing-page sections. Every section is a single HTML file that renders on its own — no build step, no dependencies.</p>
+
+    <div id="root"></div>
+
+    <footer>
+      Adding a section? Read <code>prompts/add-section.md</code> and the push rules in <code>README.md</code>.
+    </footer>
+  </div>
+
+<script>
+  // Add new entries here when you add a section file.
+  const LIBRARY = [
+    { category: 'hero',        sections: [] },
+    { category: 'about',       sections: [] },
+    { category: 'features',    sections: [] },
+    { category: 'testimonial', sections: [
+        { name: 'Hugo Testimonial', file: 'sections/testimonial/hugo-testimonial.html',
+          desc: 'Hover-spotlight testimonial row. Five portrait cards that share one flex row; hovering any card turns it into a landscape rectangle revealing the full quote.' }
+    ]},
+    { category: 'pricing',     sections: [] },
+    { category: 'faq',         sections: [] },
+    { category: 'cta',         sections: [] },
+    { category: 'footer',      sections: [] }
+  ];
+
+  const root = document.getElementById('root');
+  root.innerHTML = LIBRARY.map(c => `
+    <section class="cat">
+      <div class="cat-head">
+        <span class="cat-name">${c.category}</span>
+        <span class="cat-count">${c.sections.length} section${c.sections.length === 1 ? '' : 's'}</span>
+      </div>
+      ${c.sections.length === 0
+        ? '<p class="cat-empty">No sections yet — this category is open.</p>'
+        : `<div class="grid">${c.sections.map(s => `
+            <a class="item" href="${s.file}">
+              <div class="t">${s.name}</div>
+              <div class="d">${s.desc}</div>
+              <div class="go">Open preview →</div>
+            </a>`).join('')}</div>`}
+    </section>
+  `).join('');
+</script>
+</body>
+</html>
