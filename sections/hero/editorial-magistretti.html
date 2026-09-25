@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Editorial Magistretti — Hero</title>
+<style>
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../../fonts/DMSans-latin.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../../fonts/DMSans-latin.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../../fonts/DMSans-latin.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../../fonts/DMSans-latin.woff2') format('woff2');
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    background: #efeae2;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #efeae2;
+    padding: clamp(20px, 2.6vh, 34px) clamp(24px, 2.8vw, 44px) clamp(22px, 2.8vh, 36px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .card-body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: clamp(20px, 2.4vw, 36px);
+    margin-top: 4px;
+    min-height: 0;
+  }
+
+  .col-left {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    gap: 10px;
+  }
+  .hero-img {
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 2px;
+    background: #d8d2c6;
+    min-height: 0;
+  }
+  .hero-img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity .3s ease;
+  }
+  .thumbs {
+    display: flex;
+    gap: 6px;
+  }
+  .thumbs .thumb {
+    width: 46px;
+    height: 46px;
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .25s ease, filter .3s ease;
+    filter: grayscale(1);
+    background: #d8d2c6;
+    flex-shrink: 0;
+    border: none;
+    padding: 0;
+  }
+  .thumbs .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+  .thumbs .thumb:hover { transform: translateY(-2px); }
+  .thumbs .thumb.active { filter: grayscale(0); }
+
+  .col-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0;
+    gap: 0;
+  }
+  .headline {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 500;
+    font-size: clamp(32px, 4vw, 54px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin: 0 0 36px;
+    color: #141414;
+    text-align: center;
+    align-self: center;
+  }
+
+  .feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 36px;
+  }
+  .feature .vertical-label {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-top: 14px;
+    order: 2;
+  }
+  .feature .feature-img {
+    width: 210px;
+    height: 280px;
+    border-radius: 2px;
+    overflow: hidden;
+    background: #d8d2c6;
+    order: 1;
+  }
+  .feature .feature-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #6b6b6b;
+    max-width: 320px;
+    margin: 0;
+    text-align: center;
+    align-self: center;
+  }
+
+  @media (max-width: 1024px) {
+    .card-body { gap: 24px; }
+    .headline { font-size: clamp(28px, 3.6vw, 42px); }
+    .feature .feature-img { width: 170px; height: 230px; }
+  }
+  @media (max-width: 768px) {
+    .card { padding: 18px; }
+    .card-body { grid-template-columns: 1fr; gap: 14px; }
+    .hero-img { min-height: 220px; }
+    .col-right { padding-bottom: 0; }
+    .headline { font-size: 26px; }
+    .feature { justify-content: start; }
+    .desc { margin-left: 0; }
+    .feature .feature-img { width: 160px; height: 210px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero" aria-label="Italian Modernist Vico Magistretti — editorial feature">
+  <article class="card">
+    <div class="card-body">
+
+      <div class="col-left">
+        <div class="hero-img">
+          <img id="heroImg" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80" alt="Model seated on the Carimate chair" />
+        </div>
+        <div class="thumbs" id="thumbs">
+          <button type="button" class="thumb active" data-img="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80" aria-label="View image 1">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=200&q=80" alt="" />
+          </button>
+          <button type="button" class="thumb" data-img="https://images.unsplash.com/photo-1492288991661-058aa541ff43?auto=format&fit=crop&w=900&q=80" aria-label="View image 2">
+            <img src="https://images.unsplash.com/photo-1492288991661-058aa541ff43?auto=format&fit=crop&w=200&q=80" alt="" />
+          </button>
+          <button type="button" class="thumb" data-img="https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=900&q=80" aria-label="View image 3">
+            <img src="https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=200&q=80" alt="" />
+          </button>
+          <button type="button" class="thumb" data-img="https://images.unsplash.com/photo-1542219550-37153d387c27?auto=format&fit=crop&w=900&q=80" aria-label="View image 4">
+            <img src="https://images.unsplash.com/photo-1542219550-37153d387c27?auto=format&fit=crop&w=200&q=80" alt="" />
+          </button>
+        </div>
+      </div>
+
+      <div class="col-right">
+        <h1 class="headline">Italian Modernist<br>Vico Magistretti</h1>
+        <div class="feature">
+          <div class="vertical-label">THE CARIMATE CHAIR</div>
+          <div class="feature-img">
+            <img src="https://images.unsplash.com/photo-1542596594-649edbc13630?auto=format&fit=crop&w=400&q=80" alt="Close up of model in leather jacket" />
+          </div>
+        </div>
+        <p class="desc">
+          The Carimate Chair, designed by the<br>
+          late italian modernist Vico Magistretti<br>
+          and newly reissued by Fritz Hansen,<br>
+          demonstrate the happy unity.
+        </p>
+      </div>
+
+    </div>
+  </article>
+</section>
+
+<script>
+  (function () {
+    var heroImg = document.getElementById('heroImg');
+    var thumbBar = document.getElementById('thumbs');
+    if (!heroImg || !thumbBar) return;
+
+    var urls = [];
+    thumbBar.querySelectorAll('.thumb').forEach(function (t) {
+      var u = t.getAttribute('data-img');
+      if (u) urls.push(u);
+    });
+    urls.forEach(function (u) { var im = new Image(); im.src = u; });
+
+    thumbBar.addEventListener('click', function (e) {
+      var thumb = e.target.closest('.thumb');
+      if (!thumb) return;
+      var src = thumb.getAttribute('data-img');
+      if (!src) return;
+
+      heroImg.style.opacity = '0';
+      setTimeout(function () {
+        heroImg.src = src;
+        heroImg.onload = function () { heroImg.style.opacity = '1'; };
+      }, 150);
+
+      thumbBar.querySelectorAll('.thumb').forEach(function (t) {
+        t.classList.toggle('active', t === thumb);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
