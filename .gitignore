@@ -31,6 +31,9 @@ credentials.json
 .wrangler/
 .mf/
 
+# WorkBuddy workspace metadata
+.workbuddy-ai/
+
 # Logs
 *.log
 npm-debug.log*
