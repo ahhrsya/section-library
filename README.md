@@ -147,6 +147,36 @@ There is no build step — Cloudflare serves the files as-is.
 `index.html` is the entry point; sections are reachable at
 `/sections/<category>/<name>.html`.
 
+### How to deploy
+
+Pick **one** of these. All three target the same static site (root `index.html`).
+
+**Option A — Cloudflare Dashboard (no token needed from here)**
+1. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
+2. Authorize GitHub and select `ahhrsya/section-library`.
+3. Framework preset: **None**. Build command: _(empty)_. Build output directory: `/`.
+4. Deploy. Every later push to `main` redeploys automatically.
+
+**Option B — `wrangler` CLI (one command)**
+```bash
+npx wrangler pages deploy . --project-name=section-library
+# or, using the committed wrangler.toml:
+npx wrangler pages deploy
+```
+First run opens a browser to authorize your Cloudflare account.
+
+**Option C — Auto-deploy on push (GitHub Action, already wired)**
+The repo includes `.github/workflows/deploy.yml`. To activate it, add two
+**repository secrets** (`Settings → Secrets and variables → Actions`):
+
+| Secret | What it is |
+|---|---|
+| `CLOUDFLARE_API_TOKEN` | A CF API token with **Cloudflare Pages: Edit** + **Account:Cloudflare Pages** scopes |
+| `CLOUDFLARE_ACCOUNT_ID` | Your CF account ID (Dashboard → right sidebar) |
+
+Once both secrets exist, every push/merge to `main` deploys automatically, and
+every PR gets a preview deployment. No further action needed.
+
 ---
 
 ## License / usage
